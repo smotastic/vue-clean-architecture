@@ -1,12 +1,12 @@
 import "reflect-metadata";
 import { Container } from "inversify";
-import TYPES from "../../domain/Todo/TodoTypes";
+import TYPES from "../../domain/todo/todoTypes";
 import getDecorators from "inversify-inject-decorators";
 import TodoPort from "../../domain/Todo/ports/todoPort";
 import TodoInMemoryAdapter from "./todoInMemoryAdapter";
-import CreateTodoUseCase from "../../domain/Todo/usecases/createTodoUseCase";
-import ListTodoUseCase from "../../domain/Todo/usecases/listTodoUseCase";
-import TodoService from "../../domain/Todo/TodoService";
+import CreateTodoUseCase from "../../domain/todo/usecases/createTodoUseCase";
+import ListTodoUseCase from "../../domain/todo/usecases/listTodoUseCase";
+import TodoService from "../../domain/todo/todoService";
 
 const container = new Container();
 container.bind<TodoPort>(TYPES.TodoPort).to(TodoInMemoryAdapter);

@@ -1,6 +1,6 @@
 import Todo from "./model/todo";
 import { inject, injectable } from "inversify";
-import TYPES from "./TodoTypes";
+import TYPES from "./todoTypes";
 import TodoPort from "./ports/todoPort";
 import CreateTodoUseCase from "./usecases/createTodoUseCase";
 import ListTodoUseCase from "./usecases/listTodoUseCase";

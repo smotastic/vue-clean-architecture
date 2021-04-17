@@ -4,10 +4,10 @@ import TodoPort from "../../domain/Todo/ports/todoPort";
 
 @injectable()
 export default class TodoInMemoryAdapter implements TodoPort {
-  async createTodo(TodoName: string): Promise<Todo> {
+  async createTodo(todoName: string): Promise<Todo> {
     const todos: Todo[] = await this.listTodo();
     const createdTodo: Todo = {
-      name: TodoName,
+      name: todoName,
       id: todos.length + 1,
     };
     todos.push(createdTodo);
