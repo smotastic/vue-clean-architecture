@@ -9,8 +9,8 @@ import ListTodoUseCase from "./usecases/listTodoUseCase";
 export default class TodoService implements CreateTodoUseCase, ListTodoUseCase {
   private _todoPort: TodoPort;
 
-  public constructor(@inject(TYPES.TodoPort) _TodoPort: TodoPort) {
-    this._todoPort = _TodoPort;
+  public constructor(@inject(TYPES.TodoPort) _todoPort: TodoPort) {
+    this._todoPort = _todoPort;
   }
   listTodo(): Promise<Todo[]> {
     return this._todoPort.listTodo();

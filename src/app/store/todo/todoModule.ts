@@ -4,7 +4,6 @@ import TYPES from "../../../domain/todo/todoTypes";
 import ListTodoUseCase from "../../../domain/todo/usecases/listTodoUseCase";
 import CreateTodoUseCase from "../../../domain/todo/usecases/createTodoUseCase";
 import Todo from "../../../domain/todo/model/todo";
-import { toHandlers } from "@vue/runtime-core";
 export interface TodoState {
   todos: Todo[];
 }

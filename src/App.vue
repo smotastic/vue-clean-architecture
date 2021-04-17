@@ -1,16 +1,22 @@
 <template>
-  <img alt="Vue logo" src="./app/assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <div>Hallo</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import HelloWorld from "./app/components/HelloWorld.vue";
-
+import { TodoStore } from "./app/store/todo/todoModule";
+import { useModule } from "./app/store/";
 export default defineComponent({
   name: "App",
   components: {
     HelloWorld,
+  },
+  setup() {
+    const todoStore: TodoStore = useModule(TodoStore);
+    todoStore.fetchTodos();
+
+    return { todoStore };
   },
 });
 </script>
