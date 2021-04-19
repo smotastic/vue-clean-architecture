@@ -1,9 +1,13 @@
 <template>
-  <div class="container">
+  <div class="container mx-auto px-4">
     <div>
       <button @click="todoStore.addTodo('bla')">Add</button>
     </div>
-    <div v-for="todo in todoStore.todos" :key="todo.id">{{ todo.name }}</div>
+    <div class="grid grid-cols-3 gap-4">
+      <div class="bg-gray-50" v-for="todo in todoStore.todos" :key="todo.id">
+        {{ todo.name }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -26,11 +30,4 @@ export default defineComponent({
 });
 </script>
 
-<style>
-.container {
-  width: 1268px;
-  background-color: rgba(230, 221, 220, 0.5);
-  margin-left: auto;
-  margin-right: auto;
-}
-</style>
+<style></style>
