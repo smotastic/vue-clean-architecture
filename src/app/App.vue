@@ -1,33 +1,37 @@
 <template>
   <div class="container mx-auto px-4">
-    <div class="grid grid-rows-1 grid-flow-col gap-4">
-      <div class="col">
+    <div class="my-2 flex flex-row">
+      <div class="flex-col flex-grow mr-4">
         <input
           type="text"
           autofocus
-          id="username"
-          class="rounded-sm px-4 py-3 mt-3 focus:outline-none bg-gray-50 w-full"
-          placeholder="Username"
+          id="todo"
+          class="rounded-sm px-4 py-3 focus:outline-none bg-gray-100 w-full"
+          placeholder="Todo"
+          v-model="todoInput"
         />
       </div>
-      <div class="col">
+      <div class="flex-col pt-1">
         <button
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          @click="todoStore.addTodo('bla')"
+          @click="addTodo('blaaa dsajkdasjhk sdajhsdaj')"
         >
           Add
         </button>
       </div>
     </div>
-    <div class="row"></div>
-    <div class="grid grid-cols-12 gap-2">
+
+    <div class="grid grid-cols-3 gap-4">
       <div
-        class="h-16 rounded overflow-hidden border w-full bg-gray-400 mx-3 md:mx-0 lg:mx-0"
+        class="flex flex-row px-3 py-2 h-32 rounded border bg-gray-200"
         v-for="todo in todoStore.todos"
         :key="todo.id"
       >
-        <div class="px-3 py-1 text-lg font-medium">
+        <div class="flex-grow text-lg font-medium">
           {{ todo.name }}
+        </div>
+        <div>
+          <button class="trash hover:bg-red-700"></button>
         </div>
       </div>
     </div>
@@ -35,7 +39,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
 import { TodoStore } from "./store/todo/todoModule";
 import { useModule } from "./store";
@@ -48,9 +52,21 @@ export default defineComponent({
     const todoStore: TodoStore = useModule(TodoStore);
     todoStore.fetchTodos();
 
-    return { todoStore };
+    var todoInput = ref("");
+    function addTodo() {
+      todoStore.addTodo(todoInput.value);
+      todoInput.value = "";
+    }
+
+    return { todoStore, todoInput, addTodo };
   },
 });
 </script>
 
-<style></style>
+<style>
+.trash {
+  width: 32px;
+  height: 32px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>');
+}
+</style>
