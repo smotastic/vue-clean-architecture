@@ -1,27 +1,47 @@
-# Vue 3 + Typescript + Vite
+# Infrastructure
 
-This template should help get you started developing with Vue 3 and Typescript in Vite.
+Simple TODO App showcasing a clean architecture approach in VueJs.
 
-## Recommended IDE Setup
+Technologies used:
 
-[VSCode](https://code.visualstudio.com/) + [Vetur](https://marketplace.visualstudio.com/items?itemName=octref.vetur). Make sure to enable `vetur.experimental.templateInterpolationService` in settings!
+- **VueJs** with **TypeScript**
+- **Vite** as Buildtool
+- **Vuex** for state management with **Vuex Module Decorators**
+- **Inversify** for dependency injection
+- **Tailwindcss** for a pretty and simple UI
 
-### If Using `<script setup>`
+# Clean Architecture
 
-[`<script setup>`](https://github.com/vuejs/rfcs/pull/227) is a feature that is currently in RFC stage. To get proper IDE support for the syntax, use [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) instead of Vetur (and disable Vetur).
+This project is seperated into 3 layers.
 
-## Type Support For `.vue` Imports in TS
+## App
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can use the following:
+The entrypoint, and most outer layer for the application.
+Includes all Vue specific code, such as .vue files, vuex configuration and their modules.
 
-### If Using Volar
+## Domain
 
-Run `Volar: Switch TS Plugin on/off` from VSCode command palette.
+The inner containing all services to handle business logic, and business rules.
 
-### If Using Vetur
+The layer in itself is seperated into **model**, **ports** and **usecases**.
 
-1. Install and add `@vuedx/typescript-plugin-vue` to the [plugins section](https://www.typescriptlang.org/tsconfig#plugins) in `tsconfig.json`
-2. Delete `src/shims-vue.d.ts` as it is no longer needed to provide module info to Typescript
-3. Open `src/main.ts` in VSCode
-4. Open the VSCode command palette
-5. Search and run "Select TypeScript version" -> "Use workspace version"
+The package structure is **feature driven**. This means that for every feature, one package resides in the domain.
+In this case, there is only one feature 'todo', which handles creating, reading, updating and deleting todos.
+
+### Model
+
+The representation of data retrieved in the ports, and used in the usecases.
+
+### Port
+
+Or outer ports, are the port interfaces to communicate with the outside world.
+(Dependency inversion rule)
+
+### Usecases
+
+Or inner ports, defining the interfaces for the business logic, and business rules.
+Every usecase is implemented by a Service, which resided in the root package of the current feature.
+
+## Infrastructure
+
+Framework specific code, and or implementation of the outer ports of the domain, to access the data of the "outer world".

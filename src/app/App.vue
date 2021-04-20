@@ -52,7 +52,7 @@ export default defineComponent({
     const todoStore: TodoStore = useModule(TodoStore);
     todoStore.fetchTodos();
 
-    var todoInput = ref("");
+    const todoInput = ref("");
     function addTodo() {
       todoStore.addTodo(todoInput.value);
       todoInput.value = "";
