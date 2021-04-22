@@ -7,10 +7,12 @@ import TodoInMemoryAdapter from "./todoInMemoryAdapter";
 import CreateTodoUseCase from "../../domain/todo/usecases/createTodoUseCase";
 import ListTodoUseCase from "../../domain/todo/usecases/listTodoUseCase";
 import TodoService from "../../domain/todo/todoService";
+import DeleteTodoUseCase from "../../domain/todo/usecases/deleteTodoUseCase";
 
 const container = new Container();
 container.bind<TodoPort>(TYPES.TodoPort).to(TodoInMemoryAdapter);
 container.bind<CreateTodoUseCase>(TYPES.CreateTodoUseCase).to(TodoService);
 container.bind<ListTodoUseCase>(TYPES.ListTodoUseCase).to(TodoService);
+container.bind<DeleteTodoUseCase>(TYPES.DeleteTodoUseCase).to(TodoService);
 const { lazyInject } = getDecorators(container);
 export { lazyInject, container };

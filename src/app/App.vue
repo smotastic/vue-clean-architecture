@@ -14,7 +14,7 @@
       <div class="flex-col pt-1">
         <button
           class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          @click="addTodo('blaaa dsajkdasjhk sdajhsdaj')"
+          @click="addTodo"
         >
           Add
         </button>
@@ -31,7 +31,10 @@
           {{ todo.name }}
         </div>
         <div>
-          <button class="trash hover:bg-red-700"></button>
+          <button
+            @click="deleteTodo(todo.id)"
+            class="trash hover:bg-red-700"
+          ></button>
         </div>
       </div>
     </div>
@@ -58,7 +61,11 @@ export default defineComponent({
       todoInput.value = "";
     }
 
-    return { todoStore, todoInput, addTodo };
+    function deleteTodo(id: number) {
+      todoStore.deleteTodo(id);
+    }
+
+    return { todoStore, todoInput, addTodo, deleteTodo };
   },
 });
 </script>

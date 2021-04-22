@@ -4,6 +4,7 @@ import TYPES from "../../../domain/todo/todoTypes";
 import ListTodoUseCase from "../../../domain/todo/usecases/listTodoUseCase";
 import CreateTodoUseCase from "../../../domain/todo/usecases/createTodoUseCase";
 import Todo from "../../../domain/todo/model/todo";
+import DeleteTodoUseCase from "../../../domain/todo/usecases/deleteTodoUseCase";
 export interface TodoState {
   todos: Todo[];
 }
@@ -17,6 +18,8 @@ export class TodoStore extends VuexModule implements TodoState {
   public listUsecase!: ListTodoUseCase;
   @lazyInject(TYPES.CreateTodoUseCase)
   public createUsecase!: CreateTodoUseCase;
+  @lazyInject(TYPES.CreateTodoUseCase)
+  public deleteUsecase!: DeleteTodoUseCase;
 
   public todos: Todo[] = [];
 
@@ -37,5 +40,11 @@ export class TodoStore extends VuexModule implements TodoState {
     const createdTodo: Todo = await this.createUsecase.createTodo(todoName);
     this.todos.push(createdTodo);
     // this.addTodoToItems(createdTodo);
+  }
+
+  @Action({ rawError: true })
+  async deleteTodo(id: number) {
+    await this.deleteUsecase.deleteTodo(id);
+    this.fetchTodos();
   }
 }
