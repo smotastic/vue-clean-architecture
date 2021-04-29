@@ -21,7 +21,7 @@ export default class TodoService
     return this._todoPort.listTodo();
   }
 
-  createTodo(TodoName: string): Promise<Todo> {
-    return this._todoPort.createTodo(TodoName);
+  createTodo(todoName: string): Promise<Todo> {
+    return this._todoPort.createTodo(todoName);
   }
 }
