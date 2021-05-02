@@ -21,6 +21,9 @@
       </div>
     </div>
 
+    <div class="flex-row text-red-500 font-bold" v-if="error">
+      <div class="flex justify-center">{{ error }}</div>
+    </div>
     <div class="grid grid-cols-3 gap-4">
       <div
         class="flex flex-row px-3 py-2 h-32 rounded border bg-gray-200"
@@ -56,14 +59,17 @@ export default defineComponent({
     todoStore.fetchTodos();
 
     const todoInput = ref("");
+    const error = ref("");
+
     async function addTodo() {
       const result = await todoStore.addTodo(todoInput.value);
       result.either(
         (l) => {
-          console.log(l.getMessage());
+          error.value = l.getMessage();
         },
         (r) => {
           todoInput.value = "";
+          error.value = "";
         }
       );
     }
@@ -72,7 +78,7 @@ export default defineComponent({
       todoStore.deleteTodo(id);
     }
 
-    return { todoStore, todoInput, addTodo, deleteTodo };
+    return { todoStore, todoInput, addTodo, deleteTodo, error };
   },
 });
 </script>

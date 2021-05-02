@@ -1,3 +1,4 @@
+import TodoFailure from "./todoFailure";
 import Todo from "./model/todo";
 import { inject, injectable } from "inversify";
 import TYPES from "./todoTypes";
@@ -24,16 +25,13 @@ export default class TodoService
   }
 
   async createTodo(todoName: string): Promise<Either<Failure, Todo>> {
+    if (!todoName) {
+      return Left(TodoFailure.emptyName);
+    }
+    if (todoName.length > 15) {
+      return Left(TodoFailure.nameTooLong);
+    }
     const result = await this._todoPort.createTodo(todoName);
-    // const f: Failure = {
-    //   getMessage() {
-    //     return "hallo";
-    //   },
-    //   getCode() {
-    //     return "1";
-    //   },
-    // };
-    // return Promise.resolve(Left(f));
-    return Promise.resolve(Right(result));
+    return Right(result);
   }
 }
