@@ -5,6 +5,8 @@ import TodoPort from "./ports/todoPort";
 import CreateTodoUseCase from "./usecases/createTodoUseCase";
 import ListTodoUseCase from "./usecases/listTodoUseCase";
 import DeleteTodoUseCase from "./usecases/deleteTodoUseCase";
+import { Either, Left, Right } from "purify-ts/Either";
+import Failure from "../../core/domain/failures/failure";
 
 @injectable()
 export default class TodoService
@@ -21,7 +23,17 @@ export default class TodoService
     return this._todoPort.listTodo();
   }
 
-  createTodo(todoName: string): Promise<Todo> {
-    return this._todoPort.createTodo(todoName);
+  async createTodo(todoName: string): Promise<Either<Failure, Todo>> {
+    const result = await this._todoPort.createTodo(todoName);
+    // const f: Failure = {
+    //   getMessage() {
+    //     return "hallo";
+    //   },
+    //   getCode() {
+    //     return "1";
+    //   },
+    // };
+    // return Promise.resolve(Left(f));
+    return Promise.resolve(Right(result));
   }
 }

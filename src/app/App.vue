@@ -56,9 +56,16 @@ export default defineComponent({
     todoStore.fetchTodos();
 
     const todoInput = ref("");
-    function addTodo() {
-      todoStore.addTodo(todoInput.value);
-      todoInput.value = "";
+    async function addTodo() {
+      const result = await todoStore.addTodo(todoInput.value);
+      result.either(
+        (l) => {
+          console.log(l.getMessage());
+        },
+        (r) => {
+          todoInput.value = "";
+        }
+      );
     }
 
     function deleteTodo(id: number) {

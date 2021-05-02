@@ -5,6 +5,8 @@ import ListTodoUseCase from "../../../domain/todo/usecases/listTodoUseCase";
 import CreateTodoUseCase from "../../../domain/todo/usecases/createTodoUseCase";
 import Todo from "../../../domain/todo/model/todo";
 import DeleteTodoUseCase from "../../../domain/todo/usecases/deleteTodoUseCase";
+import { Either, Right } from "purify-ts/Either";
+import Failure from "../../../core/domain/failures/failure";
 export interface TodoState {
   todos: Todo[];
 }
@@ -36,10 +38,13 @@ export class TodoStore extends VuexModule implements TodoState {
   }
 
   @Action({ rawError: true })
-  async addTodo(todoName: string) {
-    const createdTodo: Todo = await this.createUsecase.createTodo(todoName);
-    this.todos.push(createdTodo);
-    // this.addTodoToItems(createdTodo);
+  async addTodo(todoName: string): Promise<Either<Failure, Todo>> {
+    const createdTodo = await this.createUsecase.createTodo(todoName);
+
+    return createdTodo.chain((r) => {
+      this.todos.push(r);
+      return Right(r);
+    });
   }
 
   @Action({ rawError: true })
