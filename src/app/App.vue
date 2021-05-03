@@ -1,85 +1,18 @@
 <template>
-  <div class="container mx-auto px-4">
-    <div class="my-2 flex flex-row">
-      <div class="flex-col flex-grow mr-4">
-        <input
-          type="text"
-          autofocus
-          id="todo"
-          class="rounded-sm px-4 py-3 focus:outline-none bg-gray-100 w-full"
-          placeholder="Todo"
-          v-model="todoInput"
-        />
-      </div>
-      <div class="flex-col pt-1">
-        <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-          @click="addTodo"
-        >
-          Add
-        </button>
-      </div>
-    </div>
-
-    <div class="flex-row text-red-500 font-bold" v-if="error">
-      <div class="flex justify-center">{{ error }}</div>
-    </div>
-    <div class="grid grid-cols-3 gap-4">
-      <div
-        class="flex flex-row px-3 py-2 h-32 rounded border bg-gray-200"
-        v-for="todo in todoStore.todos"
-        :key="todo.id"
-      >
-        <div class="flex-grow text-lg font-medium">
-          {{ todo.name }}
-        </div>
-        <div>
-          <button
-            @click="deleteTodo(todo.id)"
-            class="trash hover:bg-red-700"
-          ></button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <todo-builder />
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { TodoStore } from "../features/todo/app/store/todoModule";
-import HelloWorld from "./components/HelloWorld.vue";
+import TodoBuilder from "../features/todo/app/components/TodoBuilder.vue";
 
-import { useModule } from "./store";
 export default defineComponent({
   name: "App",
   components: {
-    HelloWorld,
+    TodoBuilder,
   },
   setup() {
-    const todoStore: TodoStore = useModule(TodoStore);
-    todoStore.fetchTodos();
-
-    const todoInput = ref("");
-    const error = ref("");
-
-    async function addTodo() {
-      const result = await todoStore.addTodo(todoInput.value);
-      result.either(
-        (l) => {
-          error.value = l.getMessage();
-        },
-        (r) => {
-          todoInput.value = "";
-          error.value = "";
-        }
-      );
-    }
-
-    function deleteTodo(id: number) {
-      todoStore.deleteTodo(id);
-    }
-
-    return { todoStore, todoInput, addTodo, deleteTodo, error };
+    return {};
   },
 });
 </script>
