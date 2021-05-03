@@ -46,7 +46,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { useModule } from "../../../../app/store";
+import { useModule } from "../../../../core/app/store";
 import { TodoStore } from "../store/todoModule";
 
 export default defineComponent({

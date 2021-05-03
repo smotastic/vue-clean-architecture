@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import TodoBuilder from "../features/todo/app/components/TodoBuilder.vue";
+import TodoBuilder from "../../features/todo/app/components/TodoBuilder.vue";
 
 export default defineComponent({
   name: "App",
