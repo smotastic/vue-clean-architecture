@@ -3,7 +3,9 @@ import Todo from "./model/todo";
 import { inject, injectable } from "inversify";
 import TYPES from "./todoTypes";
 import TodoPort from "./ports/todoPort";
-import CreateTodoUseCase from "./usecases/createTodoUseCase";
+import CreateTodoUseCase, {
+  CreateTodoUseCaseCommand,
+} from "./usecases/createTodoUseCase";
 import ListTodoUseCase from "./usecases/listTodoUseCase";
 import DeleteTodoUseCase from "./usecases/deleteTodoUseCase";
 import { Either, Left, Right } from "purify-ts/Either";
@@ -17,21 +19,23 @@ export default class TodoService
   public constructor(@inject(TYPES.TodoPort) _todoPort: TodoPort) {
     this._todoPort = _todoPort;
   }
+  async execute(
+    command: CreateTodoUseCaseCommand
+  ): Promise<Either<Failure, Todo>> {
+    if (!command.todoName) {
+      return Left(TodoFailure.emptyName);
+    }
+    if (command.todoName.length > 15) {
+      return Left(TodoFailure.nameTooLong);
+    }
+    const result = await this._todoPort.createTodo(command.todoName);
+    return Right(result);
+  }
+
   deleteTodo(id: number): Promise<void> {
     return this._todoPort.deleteTodo(id);
   }
   listTodo(): Promise<Todo[]> {
     return this._todoPort.listTodo();
-  }
-
-  async createTodo(todoName: string): Promise<Either<Failure, Todo>> {
-    if (!todoName) {
-      return Left(TodoFailure.emptyName);
-    }
-    if (todoName.length > 15) {
-      return Left(TodoFailure.nameTooLong);
-    }
-    const result = await this._todoPort.createTodo(todoName);
-    return Right(result);
   }
 }

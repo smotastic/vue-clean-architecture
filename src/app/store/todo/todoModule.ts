@@ -2,7 +2,9 @@ import { Action, Module, Mutation, VuexModule } from "vuex-module-decorators";
 import { lazyInject } from "../../../infrastructure/todo/inversify.config";
 import TYPES from "../../../domain/todo/todoTypes";
 import ListTodoUseCase from "../../../domain/todo/usecases/listTodoUseCase";
-import CreateTodoUseCase from "../../../domain/todo/usecases/createTodoUseCase";
+import CreateTodoUseCase, {
+  CreateTodoUseCaseCommand,
+} from "../../../domain/todo/usecases/createTodoUseCase";
 import Todo from "../../../domain/todo/model/todo";
 import DeleteTodoUseCase from "../../../domain/todo/usecases/deleteTodoUseCase";
 import { Either, Right } from "purify-ts/Either";
@@ -39,7 +41,9 @@ export class TodoStore extends VuexModule implements TodoState {
 
   @Action({ rawError: true })
   async addTodo(todoName: string): Promise<Either<Failure, Todo>> {
-    const createdTodo = await this.createUsecase.createTodo(todoName);
+    const createdTodo = await this.createUsecase.execute(
+      new CreateTodoUseCaseCommand(todoName)
+    );
 
     return createdTodo.chain((r) => {
       this.todos.push(r);
