@@ -46,8 +46,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import { TodoStore } from "../features/todo/app/store/todoModule";
 import HelloWorld from "./components/HelloWorld.vue";
-import { TodoStore } from "./store/todo/todoModule";
+
 import { useModule } from "./store";
 export default defineComponent({
   name: "App",

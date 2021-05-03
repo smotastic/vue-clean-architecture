@@ -1,11 +1,6 @@
-import {
-  UseCase,
-  UseCaseCommand,
-} from "./../../../core/domain/usecase/usecase";
-import Failure from "./../../../core/domain/failures/failure";
-
 import Todo from "../model/todo";
 import { Either } from "purify-ts/Either";
+import { UseCase, UseCaseCommand } from "../../../../core/domain/usecase";
 export default interface CreateTodoUseCase
   extends UseCase<Todo, CreateTodoUseCaseCommand> {
   // createTodo(todoName: string): Promise<Either<Failure, Todo>>;

@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
-import Todo from "../../domain/Todo/model/todo";
-import TodoPort from "../../domain/Todo/ports/todoPort";
+import Todo from "../domain/model/todo";
+import TodoPort from "../domain/ports/todoPort";
 
 @injectable()
 export default class TodoInMemoryAdapter implements TodoPort {

@@ -1,14 +1,16 @@
 import { Action, Module, Mutation, VuexModule } from "vuex-module-decorators";
-import { lazyInject } from "../../../infrastructure/todo/inversify.config";
-import TYPES from "../../../domain/todo/todoTypes";
-import ListTodoUseCase from "../../../domain/todo/usecases/listTodoUseCase";
+import { lazyInject } from "../../infrastructure/inversify.config";
+
+import Todo from "../../domain/model/todo";
+
+import { Either, Right } from "purify-ts/Either";
+import Failure from "../../../../core/domain/failure";
+import ListTodoUseCase from "../../domain/usecases/listTodoUseCase";
 import CreateTodoUseCase, {
   CreateTodoUseCaseCommand,
-} from "../../../domain/todo/usecases/createTodoUseCase";
-import Todo from "../../../domain/todo/model/todo";
-import DeleteTodoUseCase from "../../../domain/todo/usecases/deleteTodoUseCase";
-import { Either, Right } from "purify-ts/Either";
-import Failure from "../../../core/domain/failures/failure";
+} from "../../domain/usecases/createTodoUseCase";
+import DeleteTodoUseCase from "../../domain/usecases/deleteTodoUseCase";
+import TYPES from "../../domain/todoTypes";
 export interface TodoState {
   todos: Todo[];
 }
