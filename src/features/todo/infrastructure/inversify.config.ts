@@ -1,9 +1,11 @@
 import "reflect-metadata";
+import { ListTodoUseCaseImpl } from "./../domain/usecases/listTodoUseCase";
+import { DeleteTodoUseCaseImpl } from "./../domain/usecases/deleteTodoUseCase";
+import { CreateTodoUseCaseImpl } from "./../domain/usecases/createTodoUseCase";
 import { Container } from "inversify";
 
 import getDecorators from "inversify-inject-decorators";
 import TodoInMemoryAdapter from "./todoInMemoryAdapter";
-import TodoService from "../domain/todoService";
 import TYPES from "../domain/todoTypes";
 import DeleteTodoUseCase from "../domain/usecases/deleteTodoUseCase";
 import ListTodoUseCase from "../domain/usecases/listTodoUseCase";
@@ -12,8 +14,12 @@ import TodoPort from "../domain/ports/todoPort";
 
 const container = new Container();
 container.bind<TodoPort>(TYPES.TodoPort).to(TodoInMemoryAdapter);
-container.bind<CreateTodoUseCase>(TYPES.CreateTodoUseCase).to(TodoService);
-container.bind<ListTodoUseCase>(TYPES.ListTodoUseCase).to(TodoService);
-container.bind<DeleteTodoUseCase>(TYPES.DeleteTodoUseCase).to(TodoService);
+container
+  .bind<CreateTodoUseCase>(TYPES.CreateTodoUseCase)
+  .to(CreateTodoUseCaseImpl);
+container.bind<ListTodoUseCase>(TYPES.ListTodoUseCase).to(ListTodoUseCaseImpl);
+container
+  .bind<DeleteTodoUseCase>(TYPES.DeleteTodoUseCase)
+  .to(DeleteTodoUseCaseImpl);
 const { lazyInject } = getDecorators(container);
 export { lazyInject, container };

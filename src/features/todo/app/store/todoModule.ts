@@ -9,8 +9,11 @@ import ListTodoUseCase from "../../domain/usecases/listTodoUseCase";
 import CreateTodoUseCase, {
   CreateTodoUseCaseCommand,
 } from "../../domain/usecases/createTodoUseCase";
-import DeleteTodoUseCase from "../../domain/usecases/deleteTodoUseCase";
+import DeleteTodoUseCase, {
+  DeleteTodoUseCaseCommand,
+} from "../../domain/usecases/deleteTodoUseCase";
 import TYPES from "../../domain/todoTypes";
+import { EmptyUseCaseCommand } from "../../../../core/domain/usecase";
 export interface TodoState {
   todos: Todo[];
 }
@@ -35,10 +38,12 @@ export class TodoStore extends VuexModule implements TodoState {
   }
 
   @Action({ rawError: true })
-  async fetchTodos() {
-    const list = await this.listUsecase.listTodo();
-    // this.galaxies = list;
-    this.setTodos(list);
+  async fetchTodos(): Promise<Either<Failure, void>> {
+    const list = await this.listUsecase.execute(new EmptyUseCaseCommand());
+    return list.chain((r) => {
+      this.setTodos(r);
+      return Right(undefined);
+    });
   }
 
   @Action({ rawError: true })
@@ -55,7 +60,8 @@ export class TodoStore extends VuexModule implements TodoState {
 
   @Action({ rawError: true })
   async deleteTodo(id: number) {
-    await this.deleteUsecase.deleteTodo(id);
+    // TODO delete wird nicht ausgefuehrt
+    await this.deleteUsecase.execute(new DeleteTodoUseCaseCommand(id));
     this.fetchTodos();
   }
 }

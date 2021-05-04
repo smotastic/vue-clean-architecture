@@ -6,3 +6,5 @@ export interface UseCase<T, C extends UseCaseCommand> {
 }
 
 export interface UseCaseCommand {}
+
+export class EmptyUseCaseCommand implements UseCaseCommand {}
