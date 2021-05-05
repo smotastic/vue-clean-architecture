@@ -9,24 +9,55 @@ Technologies used:
 - **Vuex** for state management with **Vuex Module Decorators**
 - **Inversify** for dependency injection
 - **Tailwindcss** for a pretty and simple UI
+- **PurifyTs** for usage of Either in Usecases
 
 # Clean Architecture
 
 This project is seperated into 3 layers.
+
+The package structure is **feature driven**.
+This means that for every feature, one package exists.
+In each feature, the 3 layers are represented as their own sub-packages.
+
+In this case, there is only one feature 'todo', which handles creating, reading, updating and deleting todos.
+
+```
+├── core
+│ └── app
+│       ├── App.vue
+│       ├── components
+│       ├── store
+│ └── domain
+│       ├── failure.ts
+│       ├── usecase.ts
+│ └── infrastructure
+├── fooFeature
+│ └── application
+│ └── domain
+│       ├── model
+│       ├── port
+│       ├── usecase
+│ └── infrastructure
+│       ├── entity
+```
 
 ## App
 
 The entrypoint, and most outer layer for the application.
 Includes all Vue specific code, such as .vue files, vuex configuration and their modules.
 
+The entrypoint in a SPA is in this case the App.vue, which resides in the **core/app** package.
+
+### Store
+
+State-Management is handled by vuex, which in turn handles the communication to the domain, aka the usecases.
+Each feature is represented by its own module, therefore for the Todo Feature, a todoModule.ts exists.
+
 ## Domain
 
 The inner containing all services to handle business logic, and business rules.
 
 The layer in itself is seperated into **model**, **ports** and **usecases**.
-
-The package structure is **feature driven**. This means that for every feature, one package resides in the domain.
-In this case, there is only one feature 'todo', which handles creating, reading, updating and deleting todos.
 
 ### Model
 
