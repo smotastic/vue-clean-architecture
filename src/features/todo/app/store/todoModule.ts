@@ -60,7 +60,6 @@ export class TodoStore extends VuexModule implements TodoState {
 
   @Action({ rawError: true })
   async deleteTodo(id: number) {
-    // TODO delete wird nicht ausgefuehrt
     await this.deleteUsecase.execute(new DeleteTodoUseCaseCommand(id));
     this.fetchTodos();
   }
