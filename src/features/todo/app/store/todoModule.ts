@@ -27,7 +27,7 @@ export class TodoStore extends VuexModule implements TodoState {
   public listUsecase!: ListTodoUseCase;
   @lazyInject(TYPES.CreateTodoUseCase)
   public createUsecase!: CreateTodoUseCase;
-  @lazyInject(TYPES.CreateTodoUseCase)
+  @lazyInject(TYPES.DeleteTodoUseCase)
   public deleteUsecase!: DeleteTodoUseCase;
 
   public todos: Todo[] = [];
