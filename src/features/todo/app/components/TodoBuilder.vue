@@ -64,7 +64,7 @@ export default defineComponent({
         (l) => {
           error.value = l.getMessage();
         },
-        (r) => {
+        (_) => {
           todoInput.value = "";
           error.value = "";
         }
