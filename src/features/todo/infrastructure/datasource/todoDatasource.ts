@@ -1,9 +1,8 @@
-import Todo from "../../domain/entities/todo";
 import { TodoModel } from "./../model/todoModel";
 export interface TodoDatasource {
-  createTodo(todoName: string): Promise<Todo>;
+  createTodo(todoName: string): Promise<TodoModel>;
 
-  listTodo(): Promise<Todo[]>;
+  listTodo(): Promise<TodoModel[]>;
 
   deleteTodo(id: number): Promise<void>;
 }
