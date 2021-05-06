@@ -1,4 +1,4 @@
-import Todo from "../model/todo";
+import Todo from "../entities/todo";
 import { UseCase, UseCaseCommand } from "../../../../core/domain/usecase";
 import { Either, Left, Right } from "purify-ts/Either";
 import failure from "../../../../core/domain/failure";

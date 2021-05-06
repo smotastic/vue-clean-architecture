@@ -1,7 +1,7 @@
 import { Action, Module, Mutation, VuexModule } from "vuex-module-decorators";
 import { lazyInject } from "../../infrastructure/inversify.config";
 
-import Todo from "../../domain/model/todo";
+import Todo from "../../domain/entities/todo";
 
 import { Either, Right } from "purify-ts/Either";
 import Failure from "../../../../core/domain/failure";

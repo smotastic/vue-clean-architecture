@@ -7,7 +7,7 @@ import {
 import { inject, injectable } from "inversify";
 import { Either, Right } from "purify-ts/Either";
 import Failure from "../../../../core/domain/failure";
-import Todo from "../model/todo";
+import Todo from "../entities/todo";
 import TodoPort from "../ports/todoPort";
 import TYPES from "../todoTypes";
 

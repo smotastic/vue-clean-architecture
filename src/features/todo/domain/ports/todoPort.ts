@@ -1,4 +1,4 @@
-import Todo from "../model/todo";
+import Todo from "../entities/todo";
 
 export default interface TodoPort {
   createTodo(todoName: string): Promise<Todo>;
