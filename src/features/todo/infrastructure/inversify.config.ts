@@ -4,7 +4,7 @@ import { TodoDatasource } from "./datasource/todoDatasource";
 import { ListTodoUseCaseImpl } from "./../domain/usecases/listTodoUseCase";
 import { DeleteTodoUseCaseImpl } from "./../domain/usecases/deleteTodoUseCase";
 import { CreateTodoUseCaseImpl } from "./../domain/usecases/createTodoUseCase";
-import { Container, interfaces } from "inversify";
+import { Container } from "inversify";
 
 import getDecorators from "inversify-inject-decorators";
 import TodoInMemoryAdapter from "./todoInMemoryAdapter";
@@ -15,10 +15,9 @@ import CreateTodoUseCase from "../domain/usecases/createTodoUseCase";
 import TodoPort from "../domain/ports/todoPort";
 
 const container = new Container();
-const port = container.bind<TodoPort>(TYPES.TodoPort).to(TodoInMemoryAdapter);
-container
-  .bind<TodoDatasource>(TYPES.TodoDataSource)
-  .toConstructor<TodoInMemoryDataSource>(TodoInMemoryDataSource);
+container.bind<TodoPort>(TYPES.TodoPort).to(TodoInMemoryAdapter);
+container.bind<TodoDatasource>(TYPES.TodoDataSource).to(TodoInMemoryDataSource);
+// .toConstructor<TodoInMemoryDataSource>(TodoInMemoryDataSource);
 container
   .bind<CreateTodoUseCase>(TYPES.CreateTodoUseCase)
   .to(CreateTodoUseCaseImpl);

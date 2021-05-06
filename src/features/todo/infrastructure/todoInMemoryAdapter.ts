@@ -1,4 +1,3 @@
-import { lazyInject } from "./inversify.config";
 import { inject, injectable } from "inversify";
 import Todo from "../domain/entities/todo";
 import TodoPort from "../domain/ports/todoPort";
