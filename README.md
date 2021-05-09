@@ -75,4 +75,4 @@ Every usecase is implemented by it's service.
 ## Infrastructure
 
 Framework specific code, and or implementation of the outer ports of the domain, to access the data of the "outer world".
-Most prominent example would be the layer to access some external server via https.
+Most prominent example would be the layer to access some external server via http/s.

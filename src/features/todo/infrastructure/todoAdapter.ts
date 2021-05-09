@@ -5,7 +5,7 @@ import TYPES from "../domain/todoTypes";
 import { TodoDatasource } from "./datasource/todoDatasource";
 
 @injectable()
-export default class TodoInMemoryAdapter implements TodoPort {
+export default class TodoAdapter implements TodoPort {
   public todoDataSource!: TodoDatasource;
 
   public constructor(
